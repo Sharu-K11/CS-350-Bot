@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+<div class="container py-4">
+
+  <!-- Top bar like ChatGPT -->
+  <div class="gpt-topbar mb-3">
+    <div>
+      <div class="gpt-title">Chat</div>
+      <div class="gpt-subtitle">Ask about your documents. Responses can include sources.</div>
+    </div>
+    <div class="d-flex gap-2 align-items-center">
+      <button class="btn btn-outline-secondary btn-sm" id="newChatBtn" type="button">New chat</button>
+      <button class="btn btn-outline-danger btn-sm" id="clearBtn" type="button">Clear</button>
+    </div>
+  </div>
+
+  <!-- Shell -->
+  <div class="gpt-shell mx-auto">
+    <div class="card shadow-sm gpt-card">
+      <div class="card-body p-0 d-flex flex-column">
+
+        <!-- Messages -->
+        <div id="messages" class="gpt-messages">
+
+          <!-- Assistant -->
+          <section class="turn turn-assistant">
+            <div class="turn-inner">
+              <div class="turn-head">
+                <div class="role">Assistant</div>
+              </div>
+              <div class="turn-body">
+                Upload your documents, then ask me something about them.
+              </div>
+              <div class="turn-foot">
+                <span class="badge bg-secondary-subtle border text-body me-1">syllabus.pdf</span>
+                <span class="badge bg-secondary-subtle border text-body">page 2</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- User -->
+          <section class="turn turn-user">
+            <div class="turn-inner">
+              <div class="turn-head justify-content-end">
+                <div class="role">You</div>
+              </div>
+              <div class="turn-body user-bubble-wrap">
+                <div class="user-bubble">
+                  What’s the grading breakdown?
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Composer -->
+        <div class="gpt-composer">
+          <div class="composer-inner">
+            <form id="chatForm" class="composer-form">
+              <div class="composer-box">
+                <input
+                  id="prompt"
+                  class="form-control gpt-input"
+                  type="text"
+                  placeholder="Message…"
+                  autocomplete="off"
+                  required
+                />
+                <button class="btn btn-primary gpt-send" type="submit" id="sendBtn">
+                  Send
+                </button>
+              </div>
+              <div class="composer-hint">
+                Press <kbd>Enter</kbd> to send • Ask “cite sources” for citations
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<link rel="stylesheet" href="{% static 'chatApp/css/chat.css' %}">
+<script src="{% static 'chatApp/js/chat.js' %}"></script>
+{% endblock %}

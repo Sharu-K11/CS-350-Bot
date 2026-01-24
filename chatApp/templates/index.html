@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block main %}
+
+<main class="flex-grow-1">
+  <section class="container py-5">
+    <div class="row justify-content-center text-center mb-4">
+      <div class="col-lg-8">
+        <h1 class="fw-bold mb-3">Retrieval-Augmented Generation Assistant</h1>
+        <p class="lead opacity-75">
+          A smart chat application built for learning, research, and coursework.
+        </p>
+      </div>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">📄 Upload Knowledge</h5>
+            <p class="card-text opacity-75">
+              Upload PDFs, lecture notes, or documents. The assistant builds a
+              searchable knowledge base from your materials.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">💬 Ask Questions</h5>
+            <p class="card-text opacity-75">
+              Ask natural language questions and receive accurate,
+              context-aware answers grounded in your uploaded documents.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">🔍 Transparent Sources</h5>
+            <p class="card-text opacity-75">
+              Every answer can include citations, so you know exactly
+              where the information comes from.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center mt-5">
+      <div class="col-lg-8 text-center">
+        <p class="opacity-75">
+          This project demonstrates how modern AI systems can combine
+          large language models with retrieval techniques to provide
+          reliable, explainable responses — making it ideal for academic use.
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+{% endblock %}
