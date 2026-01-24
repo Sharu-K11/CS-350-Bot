@@ -127,3 +127,6 @@ STATICFILES_DIRS = [
 ]
 
 # STATIC_ROOT = BASE_DIR / "staticfiles"  # used in production
+
+
+os.environ['OPENAI_API_KEY'] = os.getenv('OPENAI_API_KEY')
