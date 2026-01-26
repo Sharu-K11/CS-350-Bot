@@ -4,21 +4,19 @@ from chatApp.chatRag.services.rag_chain import build_pipeline
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+import logging
 
 
 rag_chain = build_pipeline()
 
+
 # Create your views here.
 def home(request):
-    return render(request,'index.html' ,{})
-
-
+    return render(request, "index.html", {})
 
 
 def chat(request):
-    return render (request,'chat.html',{})
-
-
+    return render(request, "chat.html", {})
 
 
 # Build ONCE (on app startup)
@@ -39,10 +37,12 @@ def ask(request):
 
         answer = rag_chain.invoke(question)
 
-        return JsonResponse({
-            "question": question,
-            "answer": str(answer),   
-        })
+        return JsonResponse(
+            {
+                "question": question,
+                "answer": str(answer),
+            }
+        )
 
     except json.JSONDecodeError:
         return JsonResponse({"error": "Invalid JSON"}, status=400)
