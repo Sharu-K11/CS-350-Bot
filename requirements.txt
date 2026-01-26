@@ -1,5 +1,5 @@
 # --- Core web ---
-Django==6.0.1
+Django==5.2.10
 gunicorn==24.1.1
 whitenoise==6.11.0
 python-dotenv==1.2.1
