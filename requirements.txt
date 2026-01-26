@@ -1,8 +1,29 @@
-Django==5.2.10
-langchain_community==0.4.1
-langchain_core==1.2.7
-langchain_openai==1.1.7
-langchain_text_splitters==1.1.0
-python-dotenv==1.2.1
+# --- Core web ---
+Django==6.0.1
 gunicorn==24.1.1
 whitenoise==6.11.0
+python-dotenv==1.2.1
+
+# --- LangChain core ---
+langchain==1.2.7
+langchain-core==1.2.7
+langchain-community==0.4.1
+langchain-text-splitters==1.1.0
+
+# --- Vector store ---
+chromadb==1.4.1
+langchain-chroma==1.1.0
+
+# --- LLM providers (keep only what you use) ---
+langchain-openai==1.1.7
+openai==2.15.0
+
+langchain-groq==1.1.1
+groq==0.37.1
+
+# --- Document loading ---
+pypdf==6.6.0
+
+# --- Utils ---
+numpy==2.4.1
+requests==2.32.5
