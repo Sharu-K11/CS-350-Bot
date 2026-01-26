@@ -6,7 +6,7 @@
   const newChatBtn = document.getElementById("newChatBtn");
   const sendBtn = document.getElementById("sendBtn");
 
-  // ✅ Change this to your endpoint
+  // Change this to your endpoint
   const API_URL = "/api/ask/";
 
   function scrollToBottom() {
@@ -37,13 +37,13 @@
     const sourcesHtml = sources?.length
       ? `<div class="turn-foot">
           ${sources
-            .map(
-              (s) =>
-                `<span class="badge bg-secondary-subtle border text-body me-1">${escapeHtml(
-                  s
-                )}</span>`
-            )
-            .join("")}
+        .map(
+          (s) =>
+            `<span class="badge bg-secondary-subtle border text-body me-1">${escapeHtml(
+              s
+            )}</span>`
+        )
+        .join("")}
         </div>`
       : "";
 
@@ -123,12 +123,11 @@
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // ✅ If you kept @csrf_exempt on the view, you can remove this header.
-          // ✅ If you removed csrf_exempt, keep it.
-          "X-CSRFToken": csrftoken || "",
+          "X-CSRFToken": csrftoken,   // REQUIRED
         },
         body: JSON.stringify({ question: text }),
       });
+
 
       const data = await res.json().catch(() => ({}));
 

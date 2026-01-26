@@ -8,7 +8,6 @@ import json
 
 rag_chain = build_pipeline()
 
-# Create your views here.
 def home(request):
     return render(request,'index.html' ,{})
 
@@ -25,7 +24,6 @@ def chat(request):
 rag_chain = build_pipeline()
 
 
-@csrf_exempt
 def ask(request):
     if request.method != "POST":
         return JsonResponse({"error": "POST request required"}, status=405)
@@ -37,6 +35,7 @@ def ask(request):
         if not question:
             return JsonResponse({"error": "Question is required"}, status=400)
 
+        question = f"{question} At the same time pick related prective problem from the book."
         answer = rag_chain.invoke(question)
 
         return JsonResponse({

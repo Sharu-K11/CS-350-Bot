@@ -1,17 +1,21 @@
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 
-from langchain_community.vectorstores import Chroma
+
+import os
+os.environ["ANONYMIZED_TELEMETRY"] = "False"
+
+from langchain_chroma import Chroma
 
 from .ingest import ingest_documents   
 
-import os
 from pathlib import Path
 
 os.environ['OPENAI_API_KEY'] = os.getenv('OPENAI_API_KEY')
 
 PARENT_DIR = Path(__file__).resolve().parent.parent
 CHROMA_DIR = PARENT_DIR / "chroma_db"
+
 
 
 def make_chunks():
@@ -43,6 +47,7 @@ def build_vectorstore():
 
 # load existing DB (this is what the chain should use)
 def get_vectorstore():
+    build_vectorstore()
     return Chroma(
         persist_directory=str(CHROMA_DIR),
         embedding_function=OpenAIEmbeddings(),

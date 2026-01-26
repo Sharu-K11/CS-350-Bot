@@ -13,33 +13,28 @@ def format_docs(docs):
 def build_pipeline():
     llm = ChatOpenAI()
 
-    prompt = ChatPromptTemplate.from_template(
-        """
-        You are a teaching assistant. Use the context to help the student understand.
+    prompt = ChatPromptTemplate.from_template("""
+    You are a CS:APP teaching assistant. Use ONLY the provided CONTEXT (the book/notes).
+    Do not use outside knowledge.
 
-        Rules:
-        - Use ONLY the provided context for factual information.
-        - Explain in simple terms first, then add more detail.
-        - If the question is about a concept, structure the answer as:
-        1) Short definition
-        2) Intuition
-        3) Tiny example
-        4) Common mistake to avoid
-        - If the topic involves logic, reasoning, math, algorithms, or problem-solving AND the student asks for practice:
-        - Include one short practice problem based ONLY on the context
-        - Do NOT include the solution unless the student explicitly asks
-        - If the answer is not in the context, say:
-        "I don't know based on the provided documents."
+    If the answer is not in the context, reply exactly:
+    "I don't know based on the provided documents."
 
-        CONTEXT:
-        {context}
+    Output format (always):
+    1) Quick Answer (1–2 sentences)
+    2) Explanation (3–6 sentences, simple → slightly deeper)
+    3) Key Evidence (1–2 short paraphrases of what in the context supports the answer)
+    4) Practice Problem (based ONLY on context; no solution unless student explicitly asks)
 
-        STUDENT QUESTION:
-        {question}
+    CONTEXT:
+    {context}
 
-        TEACHING ANSWER:
-        """
-    )
+    QUESTION:
+    {question}
+
+    RESPONSE:
+    """)
+
 
     vectorstore = get_vectorstore()
     retriever = vectorstore.as_retriever(search_kwargs={"k": 4})

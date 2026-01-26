@@ -1,38 +1,69 @@
-<nav class="navbar navbar-expand-lg border-bottom px-3">
-  <div class="container-fluid position-relative">
+<nav class="navbar navbar-expand-lg border-bottom bg-body py-2">
+  <div class="container-fluid">
 
-    <!-- Left (logo / brand) -->
-    <a class="navbar-brand fw-bold" href="#">RAG App</a>
+    <!-- Brand -->
+    <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="{% url 'home' %}">
+      <span class="badge text-bg-primary">RAG</span>
+      <span>CS:APP Assistant</span>
+    </a>
 
-    <!-- Center nav items -->
-    <ul class="navbar-nav navbar-center gap-3">
-      <li class="nav-item">
-        <a class="nav-link active fw-medium" href="#">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link fw-medium" href="#">Chat</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link fw-medium" href="#">Contact</a>
-      </li>
-    </ul>
+    <!-- Mobile toggler -->
+    <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <!-- Right side -->
-    <div class="d-flex align-items-center gap-3 ms-auto">
-      <!-- User placeholder -->
-      <div class="small opacity-75">
-        Guest
-        <!-- Later: {{ request.user.username }} -->
+    <div class="collapse navbar-collapse" id="mainNavbar">
+
+      <!-- Center nav -->
+      <ul class="navbar-nav mx-auto gap-lg-2 text-center mt-3 mt-lg-0">
+        <li class="nav-item">
+          <a class="nav-link px-3 rounded-pill {% if request.resolver_match.url_name == 'home' %}active fw-semibold{% endif %}"
+             href="{% url 'home' %}">
+            Home
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link px-3 rounded-pill {% if request.resolver_match.url_name == 'chat' %}active fw-semibold{% endif %}"
+             href="{% url 'chat' %}">
+            Chat
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link px-3 rounded-pill"
+             href="#"
+             aria-disabled="true">
+            Contact
+          </a>
+        </li>
+      </ul>
+
+      <!-- Right actions -->
+      <div class="d-flex align-items-center gap-2 ms-lg-3 justify-content-center mt-3 mt-lg-0">
+
+        <!-- GitHub placeholder -->
+        <a class="btn btn-outline-secondary btn-sm"
+           href="#"
+           target="_blank" rel="noopener">
+          GitHub
+        </a>
+
+        <!-- Theme toggle -->
+        <button id="themeToggle"
+                class="btn btn-outline-secondary btn-sm"
+                type="button"
+                aria-label="Toggle theme">
+          <span id="themeIcon">🌙</span>
+        </button>
       </div>
 
-      <!-- Theme toggle -->
-      <button id="themeToggle"
-              class="btn btn-outline-secondary btn-sm"
-              type="button"
-              aria-label="Toggle theme">
-        🌙
-      </button>
     </div>
-
   </div>
 </nav>

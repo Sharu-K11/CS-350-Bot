@@ -4,11 +4,13 @@
 {% block main %}
 <div class="container py-4">
 
-  <!-- Top bar like ChatGPT -->
+  <!-- Top bar -->
   <div class="gpt-topbar mb-3">
     <div>
       <div class="gpt-title">Chat</div>
-      <div class="gpt-subtitle">Ask about your documents. Responses can include sources.</div>
+      <div class="gpt-subtitle">
+        Ask about CS:APP Chapter 2. This version has no chat memory yet (each question is independent).
+      </div>
     </div>
     <div class="d-flex gap-2 align-items-center">
       <button class="btn btn-outline-secondary btn-sm" id="newChatBtn" type="button">New chat</button>
@@ -21,45 +23,20 @@
     <div class="card shadow-sm gpt-card">
       <div class="card-body p-0 d-flex flex-column">
 
-        <!-- Messages -->
-        <div id="messages" class="gpt-messages">
-
-          <!-- Assistant -->
-          <section class="turn turn-assistant">
-            <div class="turn-inner">
-              <div class="turn-head">
-                <div class="role">Assistant</div>
-              </div>
-              <div class="turn-body">
-                Upload your documents, then ask me something about them.
-              </div>
-              <div class="turn-foot">
-                <span class="badge bg-secondary-subtle border text-body me-1">syllabus.pdf</span>
-                <span class="badge bg-secondary-subtle border text-body">page 2</span>
-              </div>
-            </div>
-          </section>
-
-          <!-- User -->
-          <section class="turn turn-user">
-            <div class="turn-inner">
-              <div class="turn-head justify-content-end">
-                <div class="role">You</div>
-              </div>
-              <div class="turn-body user-bubble-wrap">
-                <div class="user-bubble">
-                  What’s the grading breakdown?
-                </div>
-              </div>
-            </div>
-          </section>
-
+        <!-- Messages (empty at load; JS will render turns) -->
+        <div id="messages"
+             class="gpt-messages"
+             role="log"
+             aria-live="polite"
+             aria-relevant="additions text">
         </div>
 
         <!-- Composer -->
         <div class="gpt-composer">
           <div class="composer-inner">
             <form id="chatForm" class="composer-form">
+              {% csrf_token %}
+
               <div class="composer-box">
                 <input
                   id="prompt"
@@ -69,12 +46,19 @@
                   autocomplete="off"
                   required
                 />
+
                 <button class="btn btn-primary gpt-send" type="submit" id="sendBtn">
                   Send
                 </button>
               </div>
+
               <div class="composer-hint">
-                Press <kbd>Enter</kbd> to send • Ask “cite sources” for citations
+                Press <kbd>Enter</kbd> to send • Use <kbd>Shift</kbd>+<kbd>Enter</kbd> for a new line
+              </div>
+
+              <!-- Optional: tiny disclaimer area -->
+              <div class="small text-body-secondary mt-2">
+                For learning only — verify important details with the textbook or your professor/peers.
               </div>
             </form>
           </div>
@@ -88,4 +72,10 @@
 
 <link rel="stylesheet" href="{% static 'chatApp/css/chat.css' %}">
 <script src="{% static 'chatApp/js/chat.js' %}"></script>
+
+<!-- Expose endpoint + csrf to JS safely -->
+<script>
+  window.CHAT_ENDPOINT = "{% url 'ask' %}";  // change name if your URL name differs
+  window.CSRF_TOKEN = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+</script>
 {% endblock %}
