@@ -41,7 +41,7 @@ def ask(request):
 
         return JsonResponse({
             "question": question,
-            "answer": str(answer),   # ✅ ensure JSON-serializable
+            "answer": str(answer),   
         })
 
     except json.JSONDecodeError:
