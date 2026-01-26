@@ -4,3 +4,5 @@ langchain_core==1.2.7
 langchain_openai==1.1.7
 langchain_text_splitters==1.1.0
 python-dotenv==1.2.1
+gunicorn==24.1.1
+whitenoise==6.11.0

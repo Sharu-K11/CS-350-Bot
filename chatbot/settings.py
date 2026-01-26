@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'chatbot.urls'
@@ -126,7 +127,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",   # optional global static folder
 ]
 
-# STATIC_ROOT = BASE_DIR / "staticfiles"  # used in production
+STATIC_ROOT = BASE_DIR / "staticfiles"  # used in production
 
 
 os.environ['OPENAI_API_KEY'] = os.getenv('OPENAI_API_KEY')

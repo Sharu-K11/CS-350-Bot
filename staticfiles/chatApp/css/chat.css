@@ -1,0 +1,132 @@
+/* Center column like ChatGPT */
+.gpt-shell {
+  max-width: 920px;
+}
+
+/* Card */
+.gpt-card {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Topbar */
+.gpt-topbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+.gpt-title {
+  font-weight: 800;
+  font-size: 1.1rem;
+  line-height: 1.1;
+}
+.gpt-subtitle {
+  font-size: .85rem;
+  opacity: .7;
+  margin-top: .25rem;
+}
+
+/* Messages area */
+.gpt-messages {
+  height: min(70vh, 720px);
+  overflow-y: auto;
+  background: var(--bs-body-bg);
+}
+
+/* Each turn */
+.turn {
+  width: 100%;
+}
+.turn-inner {
+  max-width: 760px;   /* inner text width */
+  margin: 0 auto;
+  padding: 18px 16px;
+}
+.turn-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.role {
+  font-size: .78rem;
+  opacity: .65;
+}
+
+/* ChatGPT-style: assistant turns are subtly shaded */
+.turn-assistant {
+  background: rgba(0,0,0,.04);
+}
+html[data-bs-theme="dark"] .turn-assistant {
+  background: rgba(255,255,255,.06);
+}
+
+/* Turn text */
+.turn-body {
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Sources row */
+.turn-foot {
+  margin-top: 10px;
+}
+
+/* User bubble aligned right */
+.user-bubble-wrap {
+  display: flex;
+  justify-content: flex-end;
+}
+.user-bubble {
+  max-width: 100%;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--bs-border-color);
+  background: rgba(13,110,253,.09);
+}
+html[data-bs-theme="dark"] .user-bubble {
+  background: rgba(13,110,253,.18);
+}
+
+/* Composer sticks to bottom inside the card */
+.gpt-composer {
+  border-top: 1px solid var(--bs-border-color);
+  background: var(--bs-body-bg);
+}
+.composer-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 14px 16px;
+}
+
+/* Input row */
+.composer-box {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.gpt-input {
+  height: 44px;
+  border-radius: 12px;
+}
+.gpt-send {
+  height: 44px;
+  border-radius: 12px;
+  padding: 0 18px;
+  white-space: nowrap;
+}
+
+.composer-hint {
+  margin-top: 8px;
+  font-size: .8rem;
+  opacity: .65;
+}
+
+/* Scrollbar polish */
+.gpt-messages::-webkit-scrollbar { width: 10px; }
+.gpt-messages::-webkit-scrollbar-thumb {
+  background: rgba(127,127,127,.25);
+  border-radius: 999px;
+}
