@@ -47,7 +47,6 @@ def build_vectorstore():
 
 # load existing DB (this is what the chain should use)
 def get_vectorstore():
-    build_vectorstore()
     return Chroma(
         persist_directory=str(CHROMA_DIR),
         embedding_function=OpenAIEmbeddings(),

@@ -221,13 +221,3 @@ __marimo__/
 .env
 env/
 
-# if you store vector db locally
-vectordb/
-chroma/
-*.sqlite3
-
-notebook/chroma_db/
-**/chroma_db/
-*.bin
-*.sqlite3
-vectordb/
