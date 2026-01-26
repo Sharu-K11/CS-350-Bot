@@ -6,17 +6,44 @@
   const newChatBtn = document.getElementById("newChatBtn");
   const sendBtn = document.getElementById("sendBtn");
 
+  // ✅ Change this to your endpoint
+  const API_URL = "/api/ask/";
+
   function scrollToBottom() {
     messages.scrollTop = messages.scrollHeight;
+  }
+
+  function getCookie(name) {
+    // Django CSRF cookie helper
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
+    return null;
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
   }
 
   function addAssistant(text, sources = []) {
     const sec = document.createElement("section");
     sec.className = "turn turn-assistant";
 
-    const sourcesHtml = sources.length
+    const sourcesHtml = sources?.length
       ? `<div class="turn-foot">
-          ${sources.map(s => `<span class="badge bg-secondary-subtle border text-body me-1">${escapeHtml(s)}</span>`).join("")}
+          ${sources
+            .map(
+              (s) =>
+                `<span class="badge bg-secondary-subtle border text-body me-1">${escapeHtml(
+                  s
+                )}</span>`
+            )
+            .join("")}
         </div>`
       : "";
 
@@ -67,15 +94,6 @@
     if (t) t.remove();
   }
 
-  function escapeHtml(str) {
-    return String(str)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
-
   function clearMessages() {
     messages.innerHTML = "";
   }
@@ -86,7 +104,7 @@
     prompt.focus();
   });
 
-  chatForm.addEventListener("submit", (e) => {
+  chatForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const text = prompt.value.trim();
     if (!text) return;
@@ -98,15 +116,39 @@
     sendBtn.disabled = true;
     addThinking();
 
-    // Demo (replace with fetch() to Django API)
-    setTimeout(() => {
+    try {
+      const csrftoken = getCookie("csrftoken");
+
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // ✅ If you kept @csrf_exempt on the view, you can remove this header.
+          // ✅ If you removed csrf_exempt, keep it.
+          "X-CSRFToken": csrftoken || "",
+        },
+        body: JSON.stringify({ question: text }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
       removeThinking();
-      addAssistant(
-        "This is a ChatGPT-style UI. Next we’ll connect it to your Django RAG endpoint.",
-        ["example.pdf", "page 3"]
-      );
+
+      if (!res.ok) {
+        addAssistant(data.error || `Server error (${res.status})`);
+      } else {
+        // Support either "answer" or plain string response
+        const answer = data.answer ?? String(data);
+        const sources = data.sources ?? [];
+        addAssistant(answer, sources);
+      }
+    } catch (err) {
+      removeThinking();
+      addAssistant("Network error. Check server is running and endpoint is correct.");
+      console.error(err);
+    } finally {
       sendBtn.disabled = false;
-    }, 500);
+    }
   });
 
   scrollToBottom();
