@@ -20,11 +20,12 @@ def build_pipeline():
     If the answer is not in the context, reply exactly:
     "I don't know based on the provided documents."
 
-    Output format (always):
-    1) Quick Answer (1–2 sentences)
+    Output format (Based on the question you can add or remove to this format ):
+    1) Quick Answer (4–6 sentences)
     2) Explanation (3–6 sentences, simple → slightly deeper)
-    3) Key Evidence (1–2 short paraphrases of what in the context supports the answer)
+    3) Key Evidence (8-10 short paraphrases of what in the context supports the answer)
     4) Practice Problem (based ONLY on context; no solution unless student explicitly asks)
+    and exercise from the book ?                                      
 
     CONTEXT:
     {context}
@@ -37,7 +38,7 @@ def build_pipeline():
 
 
     vectorstore = get_vectorstore()
-    retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
+    retriever = vectorstore.as_retriever(search_kwargs={"k": 8})
 
     rag_chain = (
         {"context": retriever | format_docs, "question": RunnablePassthrough()}

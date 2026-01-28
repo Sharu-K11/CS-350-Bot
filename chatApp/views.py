@@ -35,7 +35,7 @@ def ask(request):
         if not question:
             return JsonResponse({"error": "Question is required"}, status=400)
 
-        question = f"{question} At the same time pick related prective problem from the book."
+        question = f"{question} "
         answer = rag_chain.invoke(question)
 
         return JsonResponse({
