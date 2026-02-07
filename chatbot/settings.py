@@ -33,9 +33,11 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     "web-production-15a63.up.railway.app",
+    "www.sysbot.dev",
 ]
 CSRF_TRUSTED_ORIGINS = [
     "https://*.up.railway.app",
+    "www.sysbot.dev"
 ]
 
 
