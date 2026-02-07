@@ -37,7 +37,8 @@ ALLOWED_HOSTS = [
 ]
 CSRF_TRUSTED_ORIGINS = [
     "https://*.up.railway.app",
-    "www.sysbot.dev"
+       "https://www.sysbot.dev",
+
 ]
 
 
